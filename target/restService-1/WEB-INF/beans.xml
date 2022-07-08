@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+ xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+ http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context.xsd
+ ">
+ 	<import resource="classpath:META-INF/cxf/cxf.xml" />
+ 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+ 	<!-- 
+ 	<context:annotation-config />
+ 	<context:component-scan base-package="com.navneet.Resource"/> -->
+ 
+ 
+	 <jaxrs:server id="restContainer" address="/">
+	 	<jaxrs:serviceBeans>
+	 		<ref bean="studentResource" />
+	 	</jaxrs:serviceBeans>
+	 	
+	 	<jaxrs:extensionMappings>
+            <entry key="json" value="application/json" /> 
+        </jaxrs:extensionMappings>
+ 
+        <jaxrs:providers>
+            <ref bean="jsonProvider" />
+        </jaxrs:providers>
+        
+ 	</jaxrs:server>
+ 
+ 
+ <!--  student related beans -->
+ 
+ 	<bean id="studentResource" class="com.navneet.Resource.StudentResource">
+ 		<property name="dataBaseService" ref="dataService" />
+ 	</bean>
+ <!-- 
+ 	<bean id="student" class="com.navneet.service.StudentService">
+ 		<property name="database" ref="data" />
+ 	</bean>
+ 
+ 	<bean id="data" class="com.navneet.database.DataBase">
+ 		<property name="dataBaseService" ref="dataService" />
+ 	</bean>
+ 	-->
+ 	<bean id="dataService" class="com.navneet.mybattis.DataBaseService" />
+
+	<!--  json related beans -->
+ 
+    <context:component-scan base-package="com.apache.cxf.xml.json.service" />
+ 
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+    
+
+
+</beans>

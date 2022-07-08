@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  
+  	<typeAliases>
+		<typeAlias type="com.navneet.model.Student" alias="Student" />
+		<typeAlias type="com.navneet.mybattis.PutStudent" alias="putStudent" />
+		<typeAlias type="com.navneet.mybattis.GetStudent" alias="getStudent" />
+		<typeAlias type="com.navneet.mybattis.DeleteStudent" alias="removeStudent" />
+	</typeAliases>
+  
+  	<environments default="development">
+        <environment id="development">
+          <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="url" value="jdbc:sqlserver://localhost;databaseName=college_record;TrustServerCertificate=true;"/>
+            <property name="username" value="sa"/>
+            <property name="password" value="hyland12345"/>
+            </dataSource>
+       </environment>
+    </environments>
+
+    <mappers>
+       <mapper resource="mapper.xml"/>
+    </mappers>
+  </configuration>

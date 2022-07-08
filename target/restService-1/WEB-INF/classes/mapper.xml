@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naveet.mybattis.DataBaseService">  
+ 
+	<resultMap type="Student" id="student">
+		<id property="rollNo" column="roll_no" />
+		<result property="name" column="student_name" />
+		<result property="department" column="department" />
+		<result property="result" column="result"/>
+		<result property="collegeName" column="college_name" />
+	</resultMap> 
+	
+	
+	<select id="getAllStudent" parameterType="int" resultType="Student" resultMap="student">
+		SELECT roll_no, student_name, department, result, college_name
+		FROM student, college
+		WHERE student.college_id=#{college_key} and
+		student.college_id=college.college_id;
+	</select>
+	
+	<select id="getCollegeKey" parameterType="getUser" resultType="int">
+			SELECT college_id 
+			FROM college_user
+			where college_user.username=#{userName} and
+			college_user.passwd=#{password}
+	</select>
+	
+	<select id="getStudentRollNo" parameterType="getStudent" resultType="Student" resultMap="student">
+		SELECT roll_no, student_name, department, result, college_name
+		FROM student, college
+		WHERE student.roll_no=#{rollNo} and student.college_id=#{collegeKey} and
+		student.college_id=college.college_id
+	</select>
+	<insert id="insertStudent" parameterType="putStudent" useGeneratedKeys="true">
+		INSERT INTO student(student_name, roll_no, department, college_id, result)
+		VALUES(#{student.name}, #{student.rollNo}, #{student.department}, #{collegeKey}, #{student.result})
+	</insert>
+	<delete id="removeStudent" parameterType="removeStudent">
+		DELETE FROM student
+		WHERE student.roll_no=#{rollNo} and student.college_id=#{collegeKey}
+	</delete>
+</mapper>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naveet.mybattis.DataBaseService">  
+
+	<resultMap type="Student" id="student">
+		<id property="rollNo" column="rollNo" />
+		<result property="name" column="student_name" />
+		<result property="department" column="department" />
+		<result property="collegeName" column="college_name" />
+	</resultMap>
+	
+	<select id="getAllStudent" resultType="Student" resultMap="student">
+		SELECT * FROM student
+	</select>
+	
+	<select id="getStudent" parameterType="int" resultType="Student" resultMap="student">
+		SELECT * FROM student WHERE rollNo=#{rollNo}
+	</select>
+	
+	<insert id="insertStudent" parameterType="Student" keyProperty="rollNo" useGeneratedKeys="true">
+		INSERT INTO student(student_name, department, college_name, result) VALUES(#{name}, #{department}, #{collegeName}, #{result})
+	</insert>
+	
+	<delete id="deleteStudent" parameterType="int">
+		DELETE FROM student where rollNo=#{id}
+	</delete>
+</mapper>
+

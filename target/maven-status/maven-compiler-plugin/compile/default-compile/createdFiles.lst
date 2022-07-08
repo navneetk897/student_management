@@ -1,0 +1,4 @@
+com\navneet\mybattis\SessionFactoryService.class
+com\navneet\Resource\StudentResource.class
+com\navneet\model\Student.class
+com\navneet\mybattis\DataBaseService.class
